@@ -27,7 +27,7 @@ urlpatterns = [
     path("groups/", students.views.groups_list, name="groups"),
     path("groups/add", students.views.groups_add, name="groups_add"),
     path("groups/<int:gid>/edit", students.views.groups_edit, name="groups_edit"),
-    path("groups/gid/delete", students.views.groups_delete, name="groups_delete"),
+    path("groups/<int:gid>/delete", students.views.groups_delete, name="groups_delete"),
 
     path('admin/', admin.site.urls),
 ]
