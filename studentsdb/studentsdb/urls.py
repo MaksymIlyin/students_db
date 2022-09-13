@@ -15,7 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+import students.views
+
 
 urlpatterns = [
+    path("", students.views.students_list, name="home"),
+    path("students/add", students.views.students_add, name="students_add"),
+    path("students/<int:sid>/edit", students.views.students_edit, name="students_edit"),
+    path("students/<int:sid>/delete", students.views.students_delete, name="students_delete"),
+
+    path("groups/", students.views.groups_list, name="groups"),
+    path("groups/add", students.views.groups_add, name="groups_add"),
+    path("groups/<int:gid>/edit", students.views.groups_edit, name="groups_edit"),
+    path("groups/gid/delete", students.views.groups_delete, name="groups_delete"),
+
     path('admin/', admin.site.urls),
 ]
