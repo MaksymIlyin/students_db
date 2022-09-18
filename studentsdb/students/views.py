@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Student
 
@@ -13,6 +14,17 @@ def students_list(request):
         students = students.order_by(order_by)
         if request.GET.get("reverse", "") == "1":
             students = students.reverse()
+
+    # paginate students
+    paginator = Paginator(students, 3)
+    page = request.GET.get("page")
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        students = paginator.page(1)
+    except EmptyPage:
+        # if page is out of range, deliver las page
+        students = paginator.page(paginator.num_pages)
     return render(request, "students/students_list.html", {"students": students})
 
 def students_add(request):
