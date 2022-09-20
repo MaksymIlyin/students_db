@@ -51,6 +51,14 @@ class Student(models.Model):
         verbose_name="Additional notes"
     )
 
+    student_group = models.ForeignKey(
+        "Group",
+        verbose_name="Group",
+        blank=False,
+        null=True,
+        on_delete=models.PROTECT
+        )
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
@@ -69,11 +77,12 @@ class Group(models.Model):
     )
 
     leader = models.OneToOneField(
-        Student,
+        "Student",
         verbose_name="Leader",
         blank=True,
         null=True,
-        on_delete=models.SET_NULL)
+        on_delete=models.SET_NULL
+        )
 
     notes = models.TextField(
         blank=True,
