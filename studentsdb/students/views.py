@@ -36,6 +36,10 @@ def students_edit(request, sid):
 def students_delete(request, sid):
     return HttpResponse(f"<h1>Delete Students {sid}</h1>")
 
+
+def students_add(request):
+    return render(request, "students/students_add.html", {})
+
 # Views for grouts
 def groups_list(request):
     groups = [
