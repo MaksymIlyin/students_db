@@ -6,6 +6,14 @@
 
 {% block title%}Add Student{% endblock title %}
 
+{% block status_message %}
+    {% if errors %}
+        <div class="alert alert-warning", role="alert">
+            Error(s) in input data!
+        </div>
+    {% endif %}
+{% endblock status_message %}
+
 {% block content %}
 <form action="{% url "students_add" %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -34,8 +42,8 @@
     </div>
     <div>
         <label for="ticket">Ticket*</label>
-        <span class=”help-block”>{{ errors.ticket }}</span>
         <input type="text" value="{{ request.POST.ticket }}" name="ticket" id="ticket" />
+        <span class=”help-block”>{{ errors.ticket }}</span>
     </div>
     <div>
         <label for="student_group">Group*</label>
@@ -45,7 +53,7 @@
                 <option value="{{ group.id }}" {% if group.id == request.POST.student_group|add:0 %}select="1"{% endif %}>{{ group.title }}</option>
             {% endfor %}
         </select>
-        <span class=”help-block”>{{ errors.group }}</span>
+        <span class=”help-block”>{{ errors.student_group }}</span>
     </div>
 
     <div>
